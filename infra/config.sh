@@ -9,11 +9,22 @@ sudo apt install dnsutils -y
 sudo apt install net-tools -y
 
 
+## comando para executar os testes
+#npm run test:watch
 
-#docker compose up
-#docker-compose up -d --build --force-recreate
+## comando executar o projeto
+#npm run dev
 
-sudo apt update -y
+## Instalar o Docker
+  #docker compose down --remove-orphans --volumes --rmi all 
+  #docker-compose down 
+  #docker compose up -f infra/compose.yml -d --build --force-recreate
+## instalar o DIG
+  sudo apt-get install dnsutils -y
+  sudo apt update -y
+
+# Criar uma ba
+#npm install pg@8.11.3 # ELE que vai se comunicar com postgres
 sudo apt install postgresql-client -y
 #psql 
 #psql --host=localhost --username=postgres --port=5432
