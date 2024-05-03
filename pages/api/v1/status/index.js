@@ -1,10 +1,15 @@
 import database from "infra/database.js";
+import { validateConfig } from "next/dist/server/config-shared";
 
 async function status(request, response) {
-  const result = await database.query("SELECT 1 + 1 as sum;");
-  console.log(result.rows);
-  //console.log(database);
-  response.status(200).json({ status: true });
+  const updatedAt = new Date().toISOString();
+  const { rows } = await database.query("SELECT version() AS version");
+  const versionPostgres = rows[0].version;
+  response.status(200).json({
+    updated_at: updatedAt,
+    status: true,
+    Postgres: versionPostgres,
+  });
 }
 
 export default status;
