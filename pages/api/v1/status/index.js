@@ -9,14 +9,14 @@ async function status(request, response) {
   );
   const databaseMaxConnectionsValue =
     databaseMaxConnectionsResult.rows[0].max_connections;
-
-  const databaseName = "local_db";
+ //SELECT count(*)::int FROM pg_stat_activity WHERE datname = '${databaseName}';
+  const databaseName = process.env.POSTGRES_DB;
   const databaseOpenedConnectionsResult = await database.query(
-    `SELECT count(*)::int FROM pg_stat_activity WHERE datname = '${databaseName}';`,
-
-    //"SELECT count(*)::int FROM pg_stat_activity WHERE datname = '" + databaseName + "';",
-
-    //"SELECT count(*)::int FROM pg_stat_activity WHERE datname = 'local_db';",
+    //`SELECT count(*)::int FROM pg_stat_activity WHERE datname = '${databaseName}';`,
+    {
+      text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
+      values: [databaseName],
+    }
   );
 
   const databaseOpenedConnectionsValue =
